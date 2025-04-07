@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TextWarden - AI-Powered Writing Assistant</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Color Variables */
+            --primary: #4c6ef5;
+            --primary-light: #5c7cfa;
+            --primary-dark: #3b5bdb;
+            --secondary: #38d9a9;
+            --bg-dark: #121212;
+            --bg-card: #1e1e1e;
+            --text-primary: #f8f9fa;
+            --text-secondary: #adb5bd;
+            --text-muted: #6c757d;
+            --border: #2d2d2d;
+            --success: #40c057;
+            --warning: #fab005;
+            --danger: #fa5252;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-xxl: 3rem;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+        
+        a:hover {
+            color: var(--primary-light);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+            font-size: 1rem;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            color: white;
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 1px solid var(--primary);
+            color: var(--primary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: var(--spacing-xl) 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: var(--spacing-md);
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .header-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header-tagline {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+            max-width: 600px;
+        }
+        
+        .header-buttons {
+            display: flex;
+            gap: var(--spacing-md);
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        /* About Section */
+        .section {
+            padding: var(--spacing-xxl) 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-xl);
+            text-align: center;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: var(--radius-sm);
+        }
+        
+        .about-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Features Section */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: var(--spacing-xl);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .feature-card {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            transition: transform var(--transition-normal);
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .feature-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        /* Installation Section */
+        .installation-steps {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            border: 1px solid var(--border);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .step {
+            display: flex;
+            margin-bottom: var(--spacing-lg);
+            align-items: flex-start;
+        }
+        
+        .step:last-child {
+            margin-bottom: 0;
+        }
+        
+        .step-number {
+            background-color: var(--primary);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin-right: var(--spacing-md);
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+        }
+        
+        .step-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+        
+        /* How to Use Section */
+        .usage-content {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-xl);
+            border: 1px solid var(--border);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .usage-item {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .usage-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .usage-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-xs);
+            display: flex;
+            align-items: center;
+        }
+        
+        .usage-title i {
+            color: var(--primary);
+            margin-right: var(--spacing-sm);
+        }
+        
+        .usage-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-left: 1.5rem;
+        }
+        
+        /* Tech Stack Section */
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: var(--spacing-lg);
+            margin-top: var(--spacing-xl);
+        }
+        
+        .tech-item {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-lg);
+            padding: var(--spacing-md) var(--spacing-lg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+            transition: all var(--transition-fast);
+        }
+        
+        .tech-item:hover {
+            transform: translateY(-3px);
+            border-color: var(--primary);
+        }
+        
+        .tech-icon {
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--bg-card);
+            padding: var(--spacing-xl) 0;
+            margin-top: var(--spacing-xxl);
+            border-top: 1px solid var(--border);
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: var(--spacing-md);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: var(--spacing-lg);
+        }
+        
+        .footer-link {
+            color: var(--text-secondary);
+            transition: color var(--transition-fast);
+        }
+        
+        .footer-link:hover {
+            color: var(--primary);
+        }
+        
+        .copyright {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2.5rem;
+            }
+            
+            .header-tagline {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.75rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                margin-bottom: var(--spacing-md);
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .header-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <img src="https://raw.githubusercontent.com/chirag127/TextWarden/main/extension/icons/icon128.png" alt="TextWarden Logo" class="logo">
+                <h1 class="header-title">TextWarden</h1>
+                <p class="header-tagline">AI-powered writing assistant that provides real-time grammar, spelling, style, and clarity suggestions across the web.</p>
+                <div class="header-buttons">
+                    <a href="https://github.com/chirag127/TextWarden" target="_blank" class="btn btn-primary">
+                        <i class="fab fa-github"></i> GitHub Repository
+                    </a>
+                    <a href="privacy-policy.html" target="_blank" class="btn btn-outline">
+                        <i class="fas fa-shield-alt"></i> Privacy Policy
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="section" id="about">
+        <div class="container">
+            <h2 class="section-title">About TextWarden</h2>
+            <div class="about-content">
+                <p>TextWarden is a browser extension designed to enhance your writing across the web by providing real-time grammar, spelling, style, and clarity suggestions. Powered by AI, it analyzes text in input fields (e.g., emails, social media posts, forms) and offers actionable feedback to improve communication, acting as a lightweight, privacy-focused alternative to tools like Grammarly.</p>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="features">
+        <div class="container">
+            <h2 class="section-title">Key Features</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-spell-check feature-icon"></i>
+                    <h3 class="feature-title">Real-Time Text Analysis</h3>
+                    <p class="feature-description">Scans text in web input fields and highlights grammar, spelling, punctuation, and style issues as you type.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-comment-alt feature-icon"></i>
+                    <h3 class="feature-title">Suggestions Pop-Up</h3>
+                    <p class="feature-description">Displays a pop-up near highlighted text with correction options and explanations for easy improvement.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-sliders-h feature-icon"></i>
+                    <h3 class="feature-title">Customization</h3>
+                    <p class="feature-description">Toggle features (e.g., disable style checks) and set preferences (e.g., British vs. American English).</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-lightbulb feature-icon"></i>
+                    <h3 class="feature-title">Contextual Enhancement</h3>
+                    <p class="feature-description">Suggests vocabulary improvements or rephrasing for better readability, powered by Gemini 2.0 Flash Lite.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="installation">
+        <div class="container">
+            <h2 class="section-title">Installation Instructions</h2>
+            <div class="installation-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Download the Extension</h3>
+                        <p class="step-description">Clone or download the repository from <a href="https://github.com/chirag127/TextWarden" target="_blank">GitHub</a>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Set Up the Backend</h3>
+                        <p class="step-description">Navigate to the backend directory, run <code>npm install</code>, and start the server with <code>npm start</code>.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Load the Extension</h3>
+                        <p class="step-description">Open your browser's extension page (e.g., chrome://extensions/), enable Developer mode, click "Load unpacked", and select the extension directory.</p>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h3 class="step-title">Configure Settings</h3>
+                        <p class="step-description">Click the TextWarden icon in your browser toolbar to open the popup and adjust your preferences.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="usage">
+        <div class="container">
+            <h2 class="section-title">How to Use</h2>
+            <div class="usage-content">
+                <div class="usage-item">
+                    <h3 class="usage-title"><i class="fas fa-toggle-on"></i> Enable the Extension</h3>
+                    <p class="usage-description">Click the TextWarden icon in your browser toolbar to open the popup and toggle the extension on/off.</p>
+                </div>
+                <div class="usage-item">
+                    <h3 class="usage-title"><i class="fas fa-keyboard"></i> Start Typing</h3>
+                    <p class="usage-description">Begin typing in any text field on the web, and TextWarden will analyze your text in real-time.</p>
+                </div>
+                <div class="usage-item">
+                    <h3 class="usage-title"><i class="fas fa-mouse-pointer"></i> View Suggestions</h3>
+                    <p class="usage-description">Hover over highlighted text to see suggestions and explanations in a popup.</p>
+                </div>
+                <div class="usage-item">
+                    <h3 class="usage-title"><i class="fas fa-check"></i> Apply Corrections</h3>
+                    <p class="usage-description">Click on a suggestion to apply it to your text automatically.</p>
+                </div>
+                <div class="usage-item">
+                    <h3 class="usage-title"><i class="fas fa-cog"></i> Customize</h3>
+                    <p class="usage-description">Adjust settings in the popup to customize which types of suggestions you want to see.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="section" id="tech-stack">
+        <div class="container">
+            <h2 class="section-title">Technology Stack</h2>
+            <div class="tech-stack">
+                <div class="tech-item">
+                    <i class="fab fa-js tech-icon"></i>
+                    <span>JavaScript</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-html5 tech-icon"></i>
+                    <span>HTML5</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-css3-alt tech-icon"></i>
+                    <span>CSS3</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-chrome tech-icon"></i>
+                    <span>Chrome Extension API</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fab fa-node-js tech-icon"></i>
+                    <span>Node.js</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-server tech-icon"></i>
+                    <span>Express.js</span>
+                </div>
+                <div class="tech-item">
+                    <i class="fas fa-brain tech-icon"></i>
+                    <span>Gemini 2.0 Flash Lite</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="https://github.com/chirag127/TextWarden" target="_blank" class="footer-link">GitHub</a>
+                    <a href="privacy-policy.html" target="_blank" class="footer-link">Privacy Policy</a>
+                </div>
+                <div class="copyright">
+                    &copy; <span id="current-year">2023</span> TextWarden. All rights reserved.
+                </div>
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Update current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

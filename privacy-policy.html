@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - TextWarden</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            /* Color Variables */
+            --primary: #4c6ef5;
+            --primary-light: #5c7cfa;
+            --primary-dark: #3b5bdb;
+            --secondary: #38d9a9;
+            --bg-dark: #121212;
+            --bg-card: #1e1e1e;
+            --text-primary: #f8f9fa;
+            --text-secondary: #adb5bd;
+            --text-muted: #6c757d;
+            --border: #2d2d2d;
+            --success: #40c057;
+            --warning: #fab005;
+            --danger: #fa5252;
+            
+            /* Spacing */
+            --spacing-xs: 0.25rem;
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 1.5rem;
+            --spacing-xl: 2rem;
+            --spacing-xxl: 3rem;
+            
+            /* Border Radius */
+            --radius-sm: 4px;
+            --radius-md: 8px;
+            --radius-lg: 12px;
+            
+            /* Transitions */
+            --transition-fast: 0.2s ease;
+            --transition-normal: 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            transition: color var(--transition-fast);
+        }
+        
+        a:hover {
+            color: var(--primary-light);
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 var(--spacing-lg);
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius-md);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all var(--transition-fast);
+            border: none;
+            font-size: 1rem;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-light);
+            color: white;
+        }
+        
+        /* Header Styles */
+        header {
+            padding: var(--spacing-xl) 0;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .header-subtitle {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: var(--spacing-xl);
+        }
+        
+        .back-button {
+            position: absolute;
+            top: var(--spacing-xl);
+            left: var(--spacing-lg);
+        }
+        
+        /* Policy Content */
+        .policy-section {
+            padding: var(--spacing-xl) 0;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .policy-section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: var(--spacing-lg);
+            color: var(--primary);
+        }
+        
+        .section-content {
+            margin-bottom: var(--spacing-lg);
+        }
+        
+        .section-content:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-content p {
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .section-content p:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-content ul {
+            margin-left: var(--spacing-xl);
+            margin-bottom: var(--spacing-md);
+        }
+        
+        .section-content li {
+            margin-bottom: var(--spacing-sm);
+        }
+        
+        .section-content li:last-child {
+            margin-bottom: 0;
+        }
+        
+        .highlight-box {
+            background-color: var(--bg-card);
+            border-radius: var(--radius-md);
+            padding: var(--spacing-lg);
+            margin: var(--spacing-lg) 0;
+            border-left: 4px solid var(--primary);
+        }
+        
+        .highlight-box-title {
+            font-weight: 600;
+            margin-bottom: var(--spacing-sm);
+            display: flex;
+            align-items: center;
+            gap: var(--spacing-sm);
+        }
+        
+        .highlight-box-title i {
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--bg-card);
+            padding: var(--spacing-xl) 0;
+            margin-top: var(--spacing-xxl);
+            border-top: 1px solid var(--border);
+            text-align: center;
+        }
+        
+        .footer-content {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .header-title {
+                font-size: 2rem;
+            }
+            
+            .header-subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.3rem;
+            }
+            
+            .back-button {
+                position: relative;
+                top: 0;
+                left: 0;
+                margin-bottom: var(--spacing-lg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="btn btn-primary back-button">
+                    <i class="fas fa-arrow-left"></i> Back to Home
+                </a>
+                <h1 class="header-title">Privacy Policy</h1>
+                <p class="header-subtitle">Last Updated: April 7, 2023</p>
+            </div>
+        </div>
+    </header>
+    
+    <main>
+        <div class="container">
+            <section class="policy-section" id="introduction">
+                <h2 class="section-title">Introduction</h2>
+                <div class="section-content">
+                    <p>Welcome to TextWarden's Privacy Policy. This document outlines how we collect, use, and protect your data when you use our browser extension. We are committed to ensuring the privacy and security of your information while providing a helpful writing assistant tool.</p>
+                    <p>TextWarden is designed with privacy in mind, processing most data locally on your device and minimizing data transmission. We believe in transparency about our data practices and giving you control over your information.</p>
+                </div>
+            </section>
+            
+            <section class="policy-section" id="permissions">
+                <h2 class="section-title">Required Permissions</h2>
+                <div class="section-content">
+                    <p>TextWarden requires certain browser permissions to function properly. Here's why each permission is necessary:</p>
+                    <ul>
+                        <li><strong>storage</strong>: To save your preferences (language choice, enabled features) and statistics locally in your browser.</li>
+                        <li><strong>activeTab</strong>: To access and analyze text in the current webpage's input fields, textareas, and contenteditable elements.</li>
+                        <li><strong>scripting</strong>: To inject our content scripts that detect text fields and provide highlighting and suggestions.</li>
+                        <li><strong>host permissions</strong> (<code>&lt;all_urls&gt;</code>): To function across all websites where you might want to use TextWarden.</li>
+                    </ul>
+                    <div class="highlight-box">
+                        <h3 class="highlight-box-title"><i class="fas fa-shield-alt"></i> Permission Usage</h3>
+                        <p>We use these permissions only for the stated purposes. TextWarden does not use these permissions to collect browsing history, track your activity across websites, or gather any personal information beyond what's necessary for text analysis.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="policy-section" id="information-collected">
+                <h2 class="section-title">Information We Collect</h2>
+                <div class="section-content">
+                    <p>TextWarden collects and processes the following information:</p>
+                    <ul>
+                        <li><strong>Text Content</strong>: The text you type in input fields, which is temporarily processed to provide grammar, spelling, style, and clarity suggestions.</li>
+                        <li><strong>User Preferences</strong>: Your settings such as language preference (American/British English) and which types of checks you've enabled.</li>
+                        <li><strong>Usage Statistics</strong>: Anonymous counts of corrections applied and suggestions shown, stored locally in your browser.</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <h3 class="highlight-box-title"><i class="fas fa-exclamation-circle"></i> What We DO NOT Collect</h3>
+                        <p>TextWarden does not collect or store:</p>
+                        <ul>
+                            <li>Personal identification information</li>
+                            <li>Email addresses or account information</li>
+                            <li>Browsing history or website visit patterns</li>
+                            <li>Persistent records of your text content</li>
+                            <li>Information about your device beyond what's provided by the browser API</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="policy-section" id="data-usage">
+                <h2 class="section-title">How We Use Your Information</h2>
+                <div class="section-content">
+                    <p>The information we collect is used exclusively for the following purposes:</p>
+                    <ul>
+                        <li><strong>Text Analysis</strong>: To analyze your text and provide grammar, spelling, style, and clarity suggestions.</li>
+                        <li><strong>Preference Management</strong>: To remember your settings and provide a consistent experience.</li>
+                        <li><strong>Feature Improvement</strong>: Anonymous usage statistics help us understand which features are most valuable.</li>
+                    </ul>
+                    <p>We do not use your data for advertising, marketing, or any purpose beyond improving the functionality of TextWarden.</p>
+                    <p>We do not sell, rent, or share your information with third parties except as described in this Privacy Policy.</p>
+                </div>
+            </section>
+            
+            <section class="policy-section" id="data-storage">
+                <h2 class="section-title">Data Storage & Security</h2>
+                <div class="section-content">
+                    <p>TextWarden prioritizes your data security in the following ways:</p>
+                    <ul>
+                        <li><strong>Local Storage</strong>: User preferences and statistics are stored locally in your browser using the browser's storage API.</li>
+                        <li><strong>Temporary Processing</strong>: Text content is temporarily processed and is not permanently stored.</li>
+                        <li><strong>Secure Transmission</strong>: When text is sent to our backend for analysis, it is transmitted using HTTPS encryption.</li>
+                        <li><strong>No User Accounts</strong>: TextWarden does not require user accounts, eliminating the risk of account-related data breaches.</li>
+                    </ul>
+                    <div class="highlight-box">
+                        <h3 class="highlight-box-title"><i class="fas fa-lock"></i> Security Measures</h3>
+                        <p>We implement appropriate security measures to protect against unauthorized access, alteration, disclosure, or destruction of your information. However, no method of transmission over the Internet or electronic storage is 100% secure, and we cannot guarantee absolute security.</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="policy-section" id="third-party">
+                <h2 class="section-title">Third-Party Services</h2>
+                <div class="section-content">
+                    <p>TextWarden may use the following third-party services:</p>
+                    <ul>
+                        <li><strong>Gemini 2.0 Flash Lite API</strong>: Used for advanced text analysis and suggestions. When enabled, text is sent to Google's API for processing. Google's use of this data is governed by their <a href="https://ai.google.dev/terms" target="_blank">AI Terms of Service</a> and <a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a>.</li>
+                    </ul>
+                    <p>We use these services only for their intended purpose of improving TextWarden's functionality. We do not share your data with third parties for advertising or marketing purposes.</p>
+                </div>
+            </section>
+            
+            <section class="policy-section" id="user-rights">
+                <h2 class="section-title">User Rights</h2>
+                <div class="section-content">
+                    <p>As a TextWarden user, you have the following rights regarding your data:</p>
+                    <ul>
+                        <li><strong>Access</strong>: You can view your stored preferences and statistics in your browser's local storage.</li>
+                        <li><strong>Control</strong>: You can modify your preferences at any time through the extension popup.</li>
+                        <li><strong>Deletion</strong>: You can clear all stored data by using the "Clear Cache" button in the extension popup or by clearing your browser's storage for the extension.</li>
+                        <li><strong>Opt-Out</strong>: You can disable TextWarden at any time using the toggle in the extension popup.</li>
+                        <li><strong>Uninstallation</strong>: You can completely remove TextWarden from your browser, which will remove all locally stored data.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section class="policy-section" id="policy-changes">
+                <h2 class="section-title">Changes to This Privacy Policy</h2>
+                <div class="section-content">
+                    <p>We may update our Privacy Policy from time to time. We will notify you of any changes by:</p>
+                    <ul>
+                        <li>Posting the new Privacy Policy on this page</li>
+                        <li>Updating the "Last Updated" date at the top of this page</li>
+                        <li>Providing a notification through the extension when significant changes are made</li>
+                    </ul>
+                    <p>We encourage you to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.</p>
+                </div>
+            </section>
+            
+            <section class="policy-section" id="contact">
+                <h2 class="section-title">Contact Information</h2>
+                <div class="section-content">
+                    <p>If you have any questions or concerns about this Privacy Policy or TextWarden's data practices, please contact us through one of the following methods:</p>
+                    <ul>
+                        <li>Submit an issue on our <a href="https://github.com/chirag127/TextWarden/issues" target="_blank">GitHub repository</a></li>
+                        <li>Contact the developer directly through GitHub: <a href="https://github.com/chirag127" target="_blank">@chirag127</a></li>
+                    </ul>
+                    <p>We are committed to addressing your concerns and will respond to inquiries in a timely manner.</p>
+                </div>
+            </section>
+        </div>
+    </main>
+    
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                &copy; <span id="current-year">2023</span> TextWarden. All rights reserved.
+            </div>
+        </div>
+    </footer>
+    
+    <script>
+        // Update current year in footer
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+    </script>
+</body>
+</html>

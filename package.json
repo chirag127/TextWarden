@@ -1,0 +1,31 @@
+{
+  "name": "textwarden",
+  "version": "1.0.0",
+  "description": "AI-powered writing assistant browser extension",
+  "main": "index.js",
+  "scripts": {
+    "start:backend": "cd backend && npm start",
+    "dev:backend": "cd backend && npm run dev",
+    "install:backend": "cd backend && npm install",
+    "install": "node install.js",
+    "test:backend": "cd backend && node test.js",
+    "test": "npm run test:backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chirag127/TextWarden.git"
+  },
+  "keywords": [
+    "browser-extension",
+    "grammar",
+    "spelling",
+    "writing",
+    "ai"
+  ],
+  "author": "chirag127",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/chirag127/TextWarden/issues"
+  },
+  "homepage": "https://github.com/chirag127/TextWarden#readme"
+}

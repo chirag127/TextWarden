@@ -157,3 +157,17 @@ textwarden/
   - **Proposed**: Assume ~10,00000 tokens based on typical LLMs; confirm with API docs and chunk text if needed.
 
   Take the context from the kbfnbcaeplbcioakkpcpgfkobkghlhen For making the browser extension
+the user prefers that you do not wait for the user to confirm the detailed plan. My github username is chirag127. Use the web search if any help is needed in the implementation of this browser extension. Also use the sequential thinking mcp server extensively wherever possible. implement everything, don't leave anything for future devlopment. follow best practices for coding
+
+
+Install the extension using the provided installation script
+Start the backend server to enable text analysis
+Load the extension in their browser
+Begin using TextWarden to improve their writing across the web
+For future enhancements, consider:
+
+Implementing a real integration with Gemini 2.0 Flash Lite API,Developing a more sophisticated text highlighting system for input fields
+
+Adding support for more languages
+Creating a custom dictionary feature
+Building a cloud-based backend for easier deployment

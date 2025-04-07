@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TextWarden</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup-container">
+    <header class="popup-header">
+      <div class="logo-container">
+        <img src="../icons/icon48.png" alt="TextWarden Logo" class="logo">
+        <h1>TextWarden</h1>
+      </div>
+      <div class="toggle-container">
+        <label class="switch">
+          <input type="checkbox" id="enableToggle" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+    </header>
+    
+    <div class="popup-content">
+      <section class="settings-section">
+        <h2>Language</h2>
+        <div class="select-container">
+          <select id="languageSelect">
+            <option value="en-US">English (US)</option>
+            <option value="en-GB">English (UK)</option>
+          </select>
+        </div>
+      </section>
+      
+      <section class="settings-section">
+        <h2>Check Types</h2>
+        <div class="check-options">
+          <label class="check-option">
+            <input type="checkbox" id="grammarCheck" checked>
+            <span>Grammar</span>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" id="spellingCheck" checked>
+            <span>Spelling</span>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" id="styleCheck" checked>
+            <span>Style</span>
+          </label>
+          <label class="check-option">
+            <input type="checkbox" id="clarityCheck" checked>
+            <span>Clarity</span>
+          </label>
+        </div>
+      </section>
+      
+      <section class="stats-section">
+        <h2>Statistics</h2>
+        <div class="stats-container">
+          <div class="stat-item">
+            <div class="stat-value" id="correctionsCount">0</div>
+            <div class="stat-label">Corrections</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-value" id="suggestionsCount">0</div>
+            <div class="stat-label">Suggestions</div>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <footer class="popup-footer">
+      <button id="resetStatsBtn" class="secondary-button">Reset Stats</button>
+      <button id="clearCacheBtn" class="secondary-button">Clear Cache</button>
+    </footer>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
