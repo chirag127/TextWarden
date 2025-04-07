@@ -205,10 +205,28 @@ function handleTextInput(event) {
     const text = getElementText(event.target);
     activeElement = event.target;
 
+    // Store the current text in a data attribute for reference
+    if (!event.target.hasAttribute("data-tw-last-text")) {
+        event.target.setAttribute("data-tw-last-text", text);
+    }
+
+    // Check if the text has actually changed
+    const lastText = event.target.getAttribute("data-tw-last-text");
+    if (text === lastText && event.target.hasAttribute("data-tw-analyzed")) {
+        // Text hasn't changed and was already analyzed, no need to re-analyze
+        return;
+    }
+
+    // Update the stored text
+    event.target.setAttribute("data-tw-last-text", text);
+
     if (text.length >= CONFIG.minTextLength) {
+        // Mark that we're analyzing this element
+        event.target.setAttribute("data-tw-analyzing", "true");
         debouncedAnalyze(text, event.target);
     } else {
         removeHighlights(event.target);
+        event.target.removeAttribute("data-tw-analyzed");
     }
 }
 
@@ -218,7 +236,21 @@ function handleFocus(event) {
 
     // Check if there's already text to analyze
     const text = getElementText(event.target);
-    if (isEnabled && text.length >= CONFIG.minTextLength) {
+
+    // Store the current text in a data attribute for reference
+    if (!event.target.hasAttribute("data-tw-last-text")) {
+        event.target.setAttribute("data-tw-last-text", text);
+    }
+
+    // Only analyze if not already analyzed or if text changed
+    const lastText = event.target.getAttribute("data-tw-last-text");
+    const needsAnalysis =
+        !event.target.hasAttribute("data-tw-analyzed") || text !== lastText;
+
+    if (isEnabled && text.length >= CONFIG.minTextLength && needsAnalysis) {
+        // Mark that we're analyzing this element
+        event.target.setAttribute("data-tw-analyzing", "true");
+        event.target.setAttribute("data-tw-last-text", text);
         debouncedAnalyze(text, event.target);
     }
 }
@@ -228,15 +260,7 @@ function handleBlur(event) {
     // Keep activeElement reference for potential corrections
 }
 
-// Get text from different types of elements
-function getElementText(element) {
-    if (element.tagName === "TEXTAREA" || element.tagName === "INPUT") {
-        return element.value;
-    } else if (element.getAttribute("contenteditable") === "true") {
-        return element.innerText;
-    }
-    return "";
-}
+// This function has been moved to a more appropriate location in the code
 
 // Analyze text using the background script
 function analyzeText(text, element) {
@@ -250,6 +274,9 @@ function analyzeText(text, element) {
             preferences: userPreferences,
         },
         (response) => {
+            // Remove the analyzing flag
+            element.removeAttribute("data-tw-analyzing");
+
             if (chrome.runtime.lastError) {
                 console.error(
                     "TextWarden: Error sending message to background script",
@@ -259,6 +286,10 @@ function analyzeText(text, element) {
             }
 
             if (response && response.suggestions) {
+                // Mark the element as analyzed
+                element.setAttribute("data-tw-analyzed", "true");
+
+                // Apply highlights
                 highlightIssues(element, text, response.suggestions);
             }
         }
@@ -286,41 +317,65 @@ function createInputOverlay(element, text, suggestions) {
         element.id = `tw-field-${Math.random().toString(36).substring(2, 9)}`;
     }
 
-    // Remove any existing overlay
-    const existingOverlay = document.querySelector(
+    // Check if there's an existing overlay
+    let overlay = document.querySelector(
         `[data-tw-overlay-for="${element.id}"]`
     );
-    if (existingOverlay) {
-        existingOverlay.remove();
+
+    if (overlay) {
+        // Update the existing overlay instead of removing it
+        // This helps maintain the overlay when text is being analyzed
+
+        // Update the position in case the element moved
+        positionOverlay(overlay, element);
+
+        // Update the content
+        const content = overlay.querySelector(".tw-overlay-content");
+        if (content) {
+            // Clear existing content
+            content.innerHTML = "";
+
+            // Apply styles again in case they changed
+            copyStyles(element, content);
+
+            // Create highlighted content
+            createHighlightedContent(content, text, suggestions);
+
+            // Update the last analyzed text
+            overlay.setAttribute("data-last-text", text);
+
+            return; // Exit early since we've updated the existing overlay
+        }
+    } else {
+        // Create a new overlay if none exists
+        overlay = document.createElement("div");
+        overlay.className = "tw-text-overlay";
+        overlay.setAttribute("data-tw-overlay", "true");
+        overlay.setAttribute("data-tw-overlay-for", element.id);
+        overlay.setAttribute("data-last-text", text);
+
+        // Position the overlay
+        positionOverlay(overlay, element);
+
+        // Create the content with highlights
+        const content = document.createElement("div");
+        content.className = "tw-overlay-content";
+
+        // Apply styles to match the input element
+        copyStyles(element, content);
+
+        // Create highlighted content
+        createHighlightedContent(content, text, suggestions);
+
+        // Add the content to the overlay
+        overlay.appendChild(content);
+
+        // Add the overlay to the document
+        document.body.appendChild(overlay);
+
+        // Add event listeners to keep the overlay in sync with the input
+        setupOverlaySync(overlay, element);
     }
-
-    // Create overlay container
-    const overlay = document.createElement("div");
-    overlay.className = "tw-text-overlay";
-    overlay.setAttribute("data-tw-overlay", "true");
-    overlay.setAttribute("data-tw-overlay-for", element.id);
-
-    // Position the overlay
-    positionOverlay(overlay, element);
-
-    // Create the content with highlights
-    const content = document.createElement("div");
-    content.className = "tw-overlay-content";
-
-    // Apply styles to match the input element
-    copyStyles(element, content);
-
-    // Create highlighted content
-    createHighlightedContent(content, text, suggestions);
-
-    // Add the content to the overlay
-    overlay.appendChild(content);
-
-    // Add the overlay to the document
-    document.body.appendChild(overlay);
-
-    // Add event listeners to keep the overlay in sync with the input
-    setupOverlaySync(overlay, element);
 
     // Add necessary styles to the document if not already added
     addOverlayStyles();
@@ -450,6 +505,38 @@ function setupOverlaySync(overlay, element) {
         }
     });
 
+    // Store the original element ID and overlay ID for reference
+    const elementId = element.id;
+    const overlayId = overlay.getAttribute("data-tw-overlay-for");
+
+    // Add a data attribute to track the last analyzed text
+    // This helps prevent the overlay from disappearing when text doesn't change
+    overlay.setAttribute("data-last-text", getElementText(element));
+
+    // Create a MutationObserver to watch for value changes in the input element
+    const valueObserver = new MutationObserver((mutations) => {
+        // Check if the value attribute changed (for input elements)
+        if (
+            element.tagName === "INPUT" &&
+            mutations.some((m) => m.attributeName === "value")
+        ) {
+            // Only update if the text actually changed
+            const currentText = element.value;
+            const lastText = overlay.getAttribute("data-last-text");
+            if (currentText !== lastText) {
+                overlay.setAttribute("data-last-text", currentText);
+            }
+        }
+    });
+
+    // Observe value attribute changes for input elements
+    if (element.tagName === "INPUT") {
+        valueObserver.observe(element, {
+            attributes: true,
+            attributeFilter: ["value"],
+        });
+    }
+
     // Remove overlay when element is removed from DOM
     const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
@@ -458,6 +545,7 @@ function setupOverlaySync(overlay, element) {
                     if (node === element || node.contains(element)) {
                         overlay.remove();
                         observer.disconnect();
+                        valueObserver.disconnect();
                         window.removeEventListener("resize", updatePosition);
                         window.removeEventListener("scroll", updatePosition);
                     }
@@ -470,6 +558,16 @@ function setupOverlaySync(overlay, element) {
         childList: true,
         subtree: true,
     });
+}
+
+// Get text from an element based on its type
+function getElementText(element) {
+    if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+        return element.value || "";
+    } else if (element.getAttribute("contenteditable") === "true") {
+        return element.textContent || "";
+    }
+    return "";
 }
 
 // Add necessary styles for the overlay system
@@ -723,13 +821,19 @@ function applySuggestion(highlightElement, replacementText) {
 function removeHighlights(element) {
     if (!element) return;
 
+    // Remove analysis state tracking attributes
+    element.removeAttribute("data-tw-analyzed");
+    element.removeAttribute("data-tw-analyzing");
+
     if (element.tagName === "TEXTAREA" || element.tagName === "INPUT") {
         // Remove any overlay we might have created
-        const overlay = document.querySelector(
-            `[data-tw-overlay-for="${element.id}"]`
-        );
-        if (overlay) {
-            overlay.remove();
+        if (element.id) {
+            const overlay = document.querySelector(
+                `[data-tw-overlay-for="${element.id}"]`
+            );
+            if (overlay) {
+                overlay.remove();
+            }
         }
     } else if (element.getAttribute("contenteditable") === "true") {
         // Remove highlight spans
@@ -759,6 +863,19 @@ function removeAllHighlights() {
     // Remove any overlays
     const overlays = document.querySelectorAll("[data-tw-overlay]");
     overlays.forEach((overlay) => overlay.remove());
+
+    // Clean up all text fields
+    const textFields = [
+        ...document.querySelectorAll("textarea"),
+        ...document.querySelectorAll('input[type="text"]'),
+        ...document.querySelectorAll('[contenteditable="true"]'),
+    ];
+
+    textFields.forEach((field) => {
+        field.removeAttribute("data-tw-analyzed");
+        field.removeAttribute("data-tw-analyzing");
+        field.removeAttribute("data-tw-last-text");
+    });
 }
 
 // Update correction statistics
