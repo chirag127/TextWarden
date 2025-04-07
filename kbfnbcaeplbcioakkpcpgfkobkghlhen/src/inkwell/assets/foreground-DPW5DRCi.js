@@ -1,0 +1,2 @@
+import{D as d,s as i,T as l,af as p}from"./index-DbtAbjfk.js";const g=n=>d(o=>{const r=n.getExecutionScopeDefinition("inline-card-interaction"),e=o(n.getPlugin("inline-card"));return i(r.onStart(t=>l(async a=>{const s=await a(t.resolve(e.provides.InlineCardViewContainer)),c=await a(t.resolve(e.provides.InlineCardInteractionContext));return i(s.add(()=>p.createElement("span",{},[c.suggestionId]),{slot:"default"}))})))});export{g as activate};
+//# sourceMappingURL=foreground-DPW5DRCi.js.map

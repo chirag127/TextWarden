@@ -1,0 +1,2 @@
+import{d as n}from"./PluginModule-CRib3PLZ-rw_nkrD1.js";import{a as e}from"./PluginDependency-Boc6-pxl-tjuTwLTj.js";import{c as o}from"./start-C5OgI2kj.js";const m=e(o(Symbol("ConnectEventSource"))),p=o(Symbol("DocumentGroup")),u=o(Symbol("DocumentGroupScope")),a=o(Symbol("WindowFactory")),i=n({background:()=>import("./index-UbfeDcZq.js"),foreground:()=>import("./index-dYJ1xl8K.js")});export{m as ConnectEventSourceToken,u as DocumentGroupScopeToken,p as DocumentGroupToken,a as WindowFactoryToken,i as activate};
+//# sourceMappingURL=index-IEURydWV.js.map

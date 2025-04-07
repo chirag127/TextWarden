@@ -1,0 +1,3 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./index-DvJtIvFp.js","./index-DbtAbjfk.js","./index-BG-luCsP.css","./TextRangeManager-Cr3iyUZK-BdxXuEeJ.js","./Delta-D-dso3t3-B1UydhvC.js","./TextRangeUpdateSemantics-D8MqPOrG-Bdcz8ucb.js","./TextRevisionFns-DGbJAFcL-DX1ABpMm.js","./defineFactory-DJYNRBNc-CQmG8A-U.js","./PluginModule-CRib3PLZ-ls39AzbW.js"])))=>i.map(i=>d[i]);
+import{c as e,_ as o}from"./index-DbtAbjfk.js";import{d as t}from"./PluginModule-CRib3PLZ-ls39AzbW.js";const i=e(Symbol("SuggestionManager")),n=t({background:()=>o(()=>import("./index-DvJtIvFp.js"),__vite__mapDeps([0,1,2,3,4,5,6,7,8]),import.meta.url)});export{i as SuggestionManagerToken,n as activate};
+//# sourceMappingURL=index-CFGWRteU.js.map

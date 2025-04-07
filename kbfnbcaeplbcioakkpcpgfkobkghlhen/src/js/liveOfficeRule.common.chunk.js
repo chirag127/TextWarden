@@ -1,0 +1,1 @@
+(self.webpackChunk=self.webpackChunk||[]).push([[87],{4464:(e,i,a)=>{a.r(i),a.d(i,{LiveOffice:()=>n});var n,f=a(55793),t=a(38684),u=a(75629),c=a(59898),l=a(37094),o=a(23070);!function(e){e.page=(0,l.$W)({name:"LiveOffice",domain:f.pT},[u.T.contentEditable("LiveOfficeEditor",(e=>({validationRules:c.u,createLayout:()=>new t.A7(e.field)}))),...o.k.newLayoutRules])}(n||(n={}))}}]);

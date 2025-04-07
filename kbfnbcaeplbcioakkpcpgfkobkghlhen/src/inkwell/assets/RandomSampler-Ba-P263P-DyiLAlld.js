@@ -1,0 +1,2 @@
+var e=t=>{throw TypeError(t)};var h=(t,a,s)=>a.has(t)||e("Cannot "+s);var l=(t,a,s)=>(h(t,a,"read from private field"),s?s.call(t):a.get(t)),m=(t,a,s)=>a.has(t)?e("Cannot add the same private member more than once"):a instanceof WeakSet?a.add(t):a.set(t,s),n=(t,a,s,o)=>(h(t,a,"write to private field"),o?o.call(t,s):a.set(t,s),s);const c=Math.random();var r;class p{constructor({probability:a}){m(this,r);n(this,r,Math.max(0,Math.min(1,a)))}shouldSelect(){return c<l(this,r)}}r=new WeakMap;export{p as R};
+//# sourceMappingURL=RandomSampler-Ba-P263P-DyiLAlld.js.map

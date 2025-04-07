@@ -1,0 +1,3 @@
+const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["./index-DOoIcCcW.js","./index-DbtAbjfk.js","./index-BG-luCsP.css","./TextRevisionSynchronizedQueue-DQV4bu5q-CHh_yPL8.js","./TextRevisionFns-DGbJAFcL-DX1ABpMm.js","./defineFactory-DJYNRBNc-CQmG8A-U.js","./PluginModule-CRib3PLZ-ls39AzbW.js"])))=>i.map(i=>d[i]);
+import{c as o,_ as e}from"./index-DbtAbjfk.js";import{d as t}from"./PluginModule-CRib3PLZ-ls39AzbW.js";const r=o(Symbol("CAPISuggestionProvider")),c=o(Symbol("CAPISuggestionCollection")),a=t({background:()=>e(()=>import("./index-DOoIcCcW.js"),__vite__mapDeps([0,1,2,3,4,5,6]),import.meta.url)});export{c as CAPISuggestionCollectionToken,r as CAPISuggestionProviderToken,a as activate};
+//# sourceMappingURL=index-BaGo9XW6.js.map

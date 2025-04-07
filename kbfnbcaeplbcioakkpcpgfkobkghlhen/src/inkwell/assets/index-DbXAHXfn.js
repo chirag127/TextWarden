@@ -1,0 +1,2 @@
+import{d as e}from"./PluginModule-CRib3PLZ-rw_nkrD1.js";import{c as o}from"./start-C5OgI2kj.js";const c=o(Symbol("TextDocument")),m=o(Symbol("TextDocumentInfo")),s=o(Symbol("DocumentSession")),r=o(Symbol("DocumentSessionManager")),i=e({background:()=>import("./index-BEwZR8xZ.js"),foreground:()=>import("./index-CqacEAxx.js")});export{r as DocumentSessionManagerToken,s as DocumentSessionToken,m as TextDocumentInfoToken,c as TextDocumentToken,i as activate};
+//# sourceMappingURL=index-DbXAHXfn.js.map

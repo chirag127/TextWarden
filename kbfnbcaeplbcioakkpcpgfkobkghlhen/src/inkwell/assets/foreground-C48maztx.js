@@ -1,0 +1,2 @@
+import{R as d}from"./index-BQHPBdKf.js";import{_ as l,s as i,I as p}from"./start-C5OgI2kj.js";const g=n=>l(o=>{const r=n.getExecutionScopeDefinition("inline-card-interaction"),e=o(n.getPlugin("inline-card"));return i(r.onStart(t=>p(async a=>{const s=await a(t.resolve(e.provides.InlineCardViewContainer)),c=await a(t.resolve(e.provides.InlineCardInteractionContext));return i(s.add(()=>d.createElement("span",{},[c.suggestionId]),{slot:"default"}))})))});export{g as activate};
+//# sourceMappingURL=foreground-C48maztx.js.map

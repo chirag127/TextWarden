@@ -1,0 +1,1 @@
+(self.webpackChunk=self.webpackChunk||[]).push([[7189],{32924:(e,a,i)=>{i.r(a),i.d(a,{Citizen:()=>n});var n,t=i(38684),u=i(75629),l=i(59898),c=i(37094),d=i(23070),f=i(55793);!function(e){const a=u.T.textarea("Citizen",(e=>({createLayout:()=>new t.A7(e.field),validationRules:l.u})));e.page=(0,c.$W)({name:"citizen",domain:f.hC},[a,...d.k.defaultFieldRuleSet])}(n||(n={}))}}]);

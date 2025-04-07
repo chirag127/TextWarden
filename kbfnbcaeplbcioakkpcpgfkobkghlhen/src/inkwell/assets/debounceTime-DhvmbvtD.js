@@ -1,0 +1,2 @@
+import{a as d}from"./async-C23VpIJo.js";import{o as m,k as v}from"./index-DbtAbjfk.js";function w(o,a){return a===void 0&&(a=d),m(function(r,e){var n=null,i=null,u=null,l=function(){if(n){n.unsubscribe(),n=null;var t=i;i=null,e.next(t)}};function c(){var t=u+o,f=a.now();if(f<t){n=this.schedule(void 0,t-f),e.add(n);return}l()}r.subscribe(v(e,function(t){i=t,u=a.now(),n||(n=a.schedule(c,o),e.add(n))},function(){l(),e.complete()},void 0,function(){i=n=null}))})}export{w as d};
+//# sourceMappingURL=debounceTime-DhvmbvtD.js.map
