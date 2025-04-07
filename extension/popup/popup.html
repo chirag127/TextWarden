@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>TextWarden</title>
   <link rel="stylesheet" href="popup.css">
 </head>
+
 <body>
   <div class="popup-container">
     <header class="popup-header">
@@ -20,7 +22,7 @@
         </label>
       </div>
     </header>
-    
+
     <div class="popup-content">
       <section class="settings-section">
         <h2>Language</h2>
@@ -31,7 +33,7 @@
           </select>
         </div>
       </section>
-      
+
       <section class="settings-section">
         <h2>Check Types</h2>
         <div class="check-options">
@@ -53,7 +55,21 @@
           </label>
         </div>
       </section>
-      
+
+      <section class="settings-section">
+        <h2>Custom Dictionary</h2>
+        <div class="dictionary-container">
+          <div class="dictionary-input-container">
+            <input type="text" id="customWordInput" placeholder="Add a word...">
+            <button id="addWordBtn" class="primary-button">Add</button>
+          </div>
+          <div class="dictionary-list" id="customDictionaryList">
+            <!-- Custom words will be added here dynamically -->
+            <div class="empty-dictionary-message">No custom words added yet.</div>
+          </div>
+        </div>
+      </section>
+
       <section class="stats-section">
         <h2>Statistics</h2>
         <div class="stats-container">
@@ -68,13 +84,14 @@
         </div>
       </section>
     </div>
-    
+
     <footer class="popup-footer">
       <button id="resetStatsBtn" class="secondary-button">Reset Stats</button>
       <button id="clearCacheBtn" class="secondary-button">Clear Cache</button>
     </footer>
   </div>
-  
+
   <script src="popup.js"></script>
 </body>
+
 </html>
