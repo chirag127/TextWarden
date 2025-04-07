@@ -38,7 +38,25 @@ Visit our [TextWarden Website](https://chirag127.github.io/TextWarden/) to learn
     npm install
     ```
 
-3. Start the server:
+3. Create a `.env` file based on `.env.example` and add your Gemini API key:
+
+    ```
+    GEMINI_API_KEY=your_api_key_here
+    NODE_ENV=development
+    ```
+
+    You can get a Gemini API key from [Google AI Studio](https://ai.google.dev/).
+
+4. Test the Gemini API integration:
+
+    ```
+    cd backend
+    node test-gemini.js
+    ```
+
+    This will test the direct connection to the Gemini API and verify that your API key is working correctly.
+
+5. Start the server:
 
     ```
     npm start
@@ -67,7 +85,8 @@ Visit our [TextWarden Website](https://chirag127.github.io/TextWarden/) to learn
 -   **Customization**: Toggle features (e.g., disable style checks) and set preferences (e.g., British vs. American English).
 -   **Contextual Enhancement**: Suggests vocabulary improvements or rephrasing for better readability.
 -   **Advanced Overlay System**: Sophisticated highlighting system that works with all types of text input fields.
--   **Gemini AI Integration**: Powered by Google's Gemini 2.0 Flash Lite for intelligent text analysis.
+-   **Gemini AI Integration**: Powered by Google's Gemini 2.0 Flash Lite for intelligent text analysis with real API integration.
+-   **Custom Dictionary**: Add words to your personal dictionary to prevent them from being flagged as errors.
 
 ## 📸 Screenshots
 
